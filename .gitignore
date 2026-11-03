@@ -2,3 +2,10 @@ target/
 node_modules/
 *.zip
 out/
+
+# Zed dev-extension build artifacts
+extension.wasm
+grammars/*.wasm
+grammars/brightscript/
+grammars/brighterscript/
+grammars/roku_xml/

@@ -16,33 +16,43 @@ schema_path = "debug_schemas/roku-debug.json"
 
 [slash_commands.roku-init]
 description = "Generate .zed/tasks.json, .zed/debug.json and .zed/settings.json for a Roku project (plus a minimal bsconfig.json when missing)."
+requires_argument = false
 
 [slash_commands.roku-transpile]
 description = "Transpile BrighterScript (.bs) to BrightScript (.brs) using the project's bsconfig.json."
+requires_argument = false
 
 [slash_commands.roku-build]
 description = "Build the project: transpile (when needed), stage and zip into out/."
+requires_argument = false
 
 [slash_commands.roku-package]
 description = "Package the project into a signed zip (uses signingPassword from bsconfig.json when present)."
+requires_argument = false
 
 [slash_commands.roku-sideload]
 description = "Sideload the built zip to a Roku device and launch the channel."
+requires_argument = false
 
 [slash_commands.roku-deploy]
 description = "Build and sideload in one step."
+requires_argument = false
 
 [slash_commands.roku-discover]
 description = "Discover Roku devices on the network (SSDP/ECP) with IP, model and status."
+requires_argument = false
 
 [slash_commands.roku-logs]
 description = "Capture device logs over ECP (bounded capture; use the generated 'roku: logs' task for live streaming)."
+requires_argument = false
 
 [slash_commands.roku-lint]
 description = "Run bslint diagnostics when the project is configured for it."
+requires_argument = false
 
 [slash_commands.roku-types]
 description = "Install or update roku-types for .d.bs type completions."
+requires_argument = false
 
 [slash_commands.roku-key]
 description = "Send a remote-control keypress to a Roku device via ECP (e.g. home, up, select)."
@@ -53,13 +63,13 @@ description = "Launch a deeplink on a Roku device via ECP."
 requires_argument = true
 
 [grammars.brightscript]
-repository = "file://grammars/tree-sitter-brightscript"
-rev = "main"
+repository = "file:///C:/Users/cristobal%20ovalle/zed-brightscript-language/target/grammar-repos/brightscript"
+rev = "3a7e6a7730fbb94fe50c8f943d87d7d6e9efbe7f"
 
 [grammars.brighterscript]
-repository = "file://grammars/tree-sitter-brighterscript"
-rev = "main"
+repository = "file:///C:/Users/cristobal%20ovalle/zed-brightscript-language/target/grammar-repos/brighterscript"
+rev = "a38d12da15b1d9381d9fc5ff278f9147430bf56f"
 
 [grammars.roku_xml]
-repository = "file://grammars/tree-sitter-roku-xml"
-rev = "main"
+repository = "file:///C:/Users/cristobal%20ovalle/zed-brightscript-language/target/grammar-repos/roku_xml"
+rev = "6ba99ec7ee6f8d4b43bb354632cb7b083331ec56"
