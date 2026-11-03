@@ -1,0 +1,18 @@
+name = "BrightScript"
+grammar = "brightscript"
+path_suffixes = ["brs"]
+line_comments = ["' ", "rem "]
+autoclose_before = "]})\"'"
+brackets = [
+    { start = "(", end = ")", close = true, newline = true },
+    { start = "[", end = "]", close = true, newline = true },
+    { start = "{", end = "}", close = true, newline = true },
+    { start = "\"", end = "\"", close = true, newline = false, not_in = [
+        "comment",
+        "string",
+    ] },
+]
+tab_size = 4
+increase_indent_pattern = '(^\s*(sub|function|for|while|do)\b.*|^\s*if\b.*\bthen\s*$|^\s*(else|elseif)\b.*|^\s*try\s*$|^\s*catch\b.*)'
+decrease_indent_pattern = '^\s*(end( sub| function| if| for| while| try)?|else|elseif|catch|next|until|loop)\b.*$'
+collapsed_placeholder = "' ..."

@@ -1,0 +1,16 @@
+[package]
+name = "zed_brightscript"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "BrightScript and BrighterScript language support for Zed"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+zed_extension_api = "0.7.0"
+
+[profile.release]
+lto = true
+codegen-units = 1
