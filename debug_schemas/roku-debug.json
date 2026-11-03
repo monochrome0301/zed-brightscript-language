@@ -1,0 +1,69 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "roku-debug",
+    "description": "Debug configuration for roku-debug (Roku channel debugging with .bs source maps)",
+    "type": "object",
+    "properties": {
+        "request": {
+            "type": "string",
+            "enum": [
+                "launch",
+                "attach"
+            ],
+            "default": "launch"
+        },
+        "host": {
+            "type": "string",
+            "description": "IP address of the Roku device",
+            "default": "$ROKU_DEVICE_IP"
+        },
+        "password": {
+            "type": "string",
+            "description": "Developer password of the Roku device",
+            "default": "$ROKU_DEV_PASSWORD"
+        },
+        "rootDir": {
+            "type": "string",
+            "description": "Project root directory containing bsconfig.json",
+            "default": "$ZED_WORKTREE_ROOT"
+        },
+        "outDir": {
+            "type": "string",
+            "description": "Directory where the built zip is written",
+            "default": "$ZED_WORKTREE_ROOT/out"
+        },
+        "sourceMaps": {
+            "type": "boolean",
+            "description": "Resolve breakpoints against the original .bs files via transpile source maps",
+            "default": true
+        },
+        "enableDebugProtocol": {
+            "type": "boolean",
+            "description": "Use the newer BrightScript debug protocol (Roku OS 9.1+)",
+            "default": true
+        },
+        "injectRaleTrackerEvent": {
+            "type": "boolean",
+            "description": "Inject RALE tracker events (Roku Advanced Layout Editor)",
+            "default": false
+        },
+        "stopOnEntry": {
+            "type": "boolean",
+            "description": "Break on the first line of the entry point",
+            "default": false
+        },
+        "componentLibrariesPort": {
+            "type": "number",
+            "description": "TCP port used by component library debugging",
+            "default": 8086
+        },
+        "bsConst": {
+            "type": "object",
+            "description": "Overrides for bs_const values in the manifest during this debug session"
+        },
+        "files": {
+            "type": "array",
+            "description": "Glob patterns controlling which files ship in the debug build"
+        }
+    }
+}

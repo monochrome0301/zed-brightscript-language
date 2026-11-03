@@ -6,9 +6,13 @@ description = "BrightScript and BrighterScript language support for Zed: tree-si
 authors = ["Cristobal Ovalle"]
 repository = "https://github.com/cristobal-ovalle/zed-brightscript-language"
 languages = ["languages/brightscript", "languages/brighter-script", "languages/scenegraph-xml"]
+snippets = ["snippets/brightscript.json"]
 
 [language_servers.brighterscript]
 code_action_kinds = ["QuickFix"]
+
+[debug_adapters.roku-debug]
+schema_path = "debug_schemas/roku-debug.json"
 
 [slash_commands.roku-init]
 description = "Generate .zed/tasks.json, .zed/debug.json and .zed/settings.json for a Roku project (plus a minimal bsconfig.json when missing)."

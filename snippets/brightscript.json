@@ -1,0 +1,118 @@
+{
+    "BrightScript": {
+        "sub": {
+            "prefix": "sub",
+            "body": [
+                "sub ${1:name}(${2:params})",
+                "\t$0",
+                "end sub"
+            ],
+            "description": "sub ... end sub"
+        },
+        "function": {
+            "prefix": "fun",
+            "body": [
+                "function ${1:name}(${2:params}) as ${3:dynamic}",
+                "\t$0",
+                "end function"
+            ],
+            "description": "function ... end function"
+        },
+        "if": {
+            "prefix": "if",
+            "body": [
+                "if ${1:condition} then",
+                "\t$0",
+                "end if"
+            ],
+            "description": "if ... end if"
+        },
+        "forEach": {
+            "prefix": "foreach",
+            "body": [
+                "for each ${1:item} in ${2:collection}",
+                "\t$0",
+                "end for"
+            ],
+            "description": "for each ... end for"
+        },
+        "for": {
+            "prefix": "for",
+            "body": [
+                "for ${1:i} = ${2:0} to ${3:10}",
+                "\t$0",
+                "end for"
+            ],
+            "description": "for ... end for"
+        },
+        "while": {
+            "prefix": "while",
+            "body": [
+                "while ${1:condition}",
+                "\t$0",
+                "end while"
+            ],
+            "description": "while ... end while"
+        },
+        "trycatch": {
+            "prefix": "try",
+            "body": [
+                "try",
+                "\t$0",
+                "catch ${1:error}",
+                "\tprint error.message",
+                "end try"
+            ],
+            "description": "try / catch block"
+        }
+    },
+    "BrighterScript": {
+        "class": {
+            "prefix": "class",
+            "body": [
+                "class ${1:Name}",
+                "\t${2:public} ${3:field} as ${4:string}",
+                "",
+                "\tsub new(${5:params})",
+                "\t\t$0",
+                "\tend sub",
+                "end class"
+            ],
+            "description": "BrighterScript class with constructor"
+        },
+        "interface": {
+            "prefix": "interface",
+            "body": [
+                "interface ${1:Name}",
+                "\t${2:field} as ${3:string}",
+                "end interface"
+            ],
+            "description": "BrighterScript interface"
+        },
+        "enum": {
+            "prefix": "enum",
+            "body": [
+                "enum ${1:Name}",
+                "\t${2:member}",
+                "end enum"
+            ],
+            "description": "BrighterScript enum"
+        },
+        "namespace": {
+            "prefix": "ns",
+            "body": [
+                "namespace ${1:Name}",
+                "\t$0",
+                "end namespace"
+            ],
+            "description": "BrighterScript namespace"
+        },
+        "templateString": {
+            "prefix": "tpl",
+            "body": [
+                "`\\${${1:expression}}`$0"
+            ],
+            "description": "template string with interpolation"
+        }
+    }
+}
