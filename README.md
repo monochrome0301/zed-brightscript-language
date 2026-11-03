@@ -1,123 +1,127 @@
 # zed-brightscript-language
 
-Soporte de **BrightScript** y **BrighterScript** para [Zed](https://zed.dev):
-resaltado tree-sitter, el language server de BrighterScript, y un pipeline
-completo de Roku — **transpilar, empaquetar y sideloadear desde Zed, sin abrir
-VS Code ni una terminal externa**.
+**BrightScript** and **BrighterScript** support for [Zed](https://zed.dev):
+tree-sitter highlighting, the BrighterScript language server, and a full Roku
+pipeline — **transpile, package and sideload straight from Zed, without
+opening VS Code or an external terminal**.
 
-Port de [`RokuCommunity/vscode-brightscript-language`](https://github.com/RokuCommunity/vscode-brightscript-language)
-dentro de los límites de la plataforma de extensiones de Zed.
+A port of [`RokuCommunity/vscode-brightscript-language`](https://github.com/RokuCommunity/vscode-brightscript-language)
+within the limits of Zed's extension platform.
 
-## Instalación
+> 🇪🇸 Documentación también disponible en [español](README.es.md).
 
-Ver [docs/INSTALL.md](docs/INSTALL.md). Resumen:
+## Installation
+
+See [docs/INSTALL.md](docs/INSTALL.md). Summary:
 
 ```sh
-node scripts/prepare-dev.mjs   # prepara las gramáticas locales para git fetch
-# En Zed: Extensions > Install Dev Extension > este directorio
+node scripts/prepare-dev.mjs   # prepares the vendored grammars for git fetch
+# In Zed: Extensions > Install Dev Extension > pick this directory
 ```
 
-## Qué incluye
+## What's included
 
-| Área | Detalle |
+| Area | Detail |
 |---|---|
-| Resaltado | Gramáticas tree-sitter vendidas y extendidas: BrightScript (`.brs`), BrighterScript (`.bs`, `.d.bs`), XML SceneGraph (`.xml`) con inyecciones para `text/brightscript`, `text/brighterscript` y CDATA |
-| Lenguaje | LSP `brighterscript` (`bsc --lsp`): diagnósticos, hover, completion, go-to-def, rename, references, folding, format — para `.brs` **y** `.bs` |
-| Outline | `outline.scm` jerárquico: subs/funciones, clases, interfaces, enums, namespaces, `#const` |
-| Build | CLI `roku-zed` (Node) que reutiliza **BrighterScript** y **roku-deploy**: `transpile`, `build`, `package`, `sideload`, `deploy`, `discover`, `logs`, `lint`, `types`, `init`, `key`, `deeplink` |
+| Highlighting | Vendored and extended tree-sitter grammars: BrightScript (`.brs`), BrighterScript (`.bs`, `.d.bs`), SceneGraph XML (`.xml`) with injections for `text/brightscript`, `text/brighterscript` and CDATA |
+| Language | `brighterscript` LSP (`bsc --lsp`): diagnostics, hover, completion, go-to-def, rename, references, folding, formatting — for both `.brs` **and** `.bs` |
+| Outline | Hierarchical `outline.scm`: subs/functions, classes, interfaces, enums, namespaces, `#const` |
+| Build | `roku-zed` CLI (Node) reusing **BrighterScript** and **roku-deploy**: `transpile`, `build`, `package`, `sideload`, `deploy`, `discover`, `logs`, `lint`, `types`, `init`, `key`, `deeplink` |
 | Slash commands | `/roku-transpile`, `/roku-build`, `/roku-package`, `/roku-sideload`, `/roku-deploy`, `/roku-discover`, `/roku-logs`, `/roku-lint`, `/roku-types`, `/roku-init`, `/roku-key`, `/roku-deeplink` |
-| Tareas | `/roku-init` genera `.zed/tasks.json` (`roku: transpile/build/package/sideload/deploy/lint/logs/types`), `.zed/debug.json` y `.zed/settings.json` |
-| Debug | Adaptador DAP `roku-debug --dap` (stdio) con `sourceMaps: true` — breakpoints sobre los `.bs` originales |
-| Snippets | `snippets/brightscript.json` (subs, funciones, clases, interfaces, enums, namespaces, template strings) |
+| Tasks | `/roku-init` generates `.zed/tasks.json` (`roku: transpile/build/package/sideload/deploy/lint/logs/types`), `.zed/debug.json` and `.zed/settings.json` |
+| Debugging | DAP adapter `roku-debug --dap` (stdio) with `sourceMaps: true` — breakpoints on the original `.bs` files |
+| Snippets | `snippets/brightscript.json` (subs, functions, classes, interfaces, enums, namespaces, template strings) |
 
 ## BrighterScript first-class
 
-- Dos lenguajes registrados (`brightscript`, `brighter-script`) con gramáticas
-  tree-sitter propias; la de BrighterScript no existía y se escribió para este
-  proyecto (clases, interfaces, enums, namespaces, `import`, `const`, `throw`,
-  anotaciones `@`, template strings, `??`/`?.`/ternario, tipos con `?`/`!`/`|`,
-  tipos `function`).
-- El build **verifica** que el zip enviado al Roku contiene BrightScript y
-  nunca `.bs` (falla si algún `.bs` sobrevive) e incluye sourcemaps.
-- `bsconfig.json` se valida con error de fichero/línea/columna; `extends`,
-  `plugins` y el resto los resuelve BrighterScript dentro del pipeline.
-- El zip solo se firma (`roku-zed package`) si hay `signingPassword`.
+- Two registered languages (`brightscript`, `brighter-script`) with their own
+  tree-sitter grammars; the BrighterScript one did not exist and was written
+  for this project (classes, interfaces, enums, namespaces, `import`, `const`,
+  `throw`, `@` annotations, template strings, `??`/`?.`/ternary, `?`/`!`/`|`
+  types, `function` types).
+- The build **verifies** that the zip shipped to the Roku contains
+  BrightScript and never `.bs` (it fails if any `.bs` survives) and includes
+  source maps.
+- `bsconfig.json` is validated with file/line/column errors; `extends`,
+  `plugins` and the rest are resolved by BrighterScript inside the pipeline.
+- The zip is only signed (`roku-zed package`) when a `signingPassword` exists.
 
-## Comandos principales
+## Key commands
 
-En la paleta del assistant panel de Zed:
+From Zed's assistant panel:
 
 ```text
-/roku-discover            # lista dispositivos (SSDP + ECP: IP, modelo, estado)
-/roku-build               # transpila (si aplica) + stage + zip en out/
+/roku-discover            # list devices (SSDP + ECP: IP, model, status)
+/roku-build               # transpile (if needed) + stage + zip into out/
 /roku-deploy              # build + sideload + launch
-/roku-logs                # captura de logs del dispositivo (ECP console)
+/roku-logs                # bounded device log capture (ECP console)
 ```
 
-O bien usa las tareas `roku: build` / `roku: deploy` / `roku: logs` de la
-paleta de tareas (`task: spawn`), generadas por `/roku-init`.
+Or use the `roku: build` / `roku: deploy` / `roku: logs` tasks from the task
+palette (`task: spawn`), generated by `/roku-init`.
 
-## Matriz de paridad
+## Parity matrix
 
-[docs/PARITY.md](docs/PARITY.md) cubre feature a feature frente a la extensión
-de VS Code, con estado honesto (`nativo` / `emulado` / `no soportado`) y cómo
-se consigue cada uno.
+[docs/PARITY.md](docs/PARITY.md) covers every feature of the VS Code
+extension with an honest status (`native` / `emulated` / `not supported`) and
+how each one is achieved.
 
-## Las tres limitaciones principales
+## The three main limitations
 
-1. **Sin UI propia**: Zed no expone webviews/panels a extensiones — el
-   discovery, remote control y device list son textuales (slash commands) y
-   los logs vivos van a una terminal de Zed. Ver [docs/PARITY.md](docs/PARITY.md).
-2. **Sin settings de usuario para el LSP** en `zed_extension_api` 0.7.0: la
-   configuración fina se hace con `bsconfig.json` (que el LSP lee de disco).
-3. **Debug no validado contra hardware real**: el adaptador y la resolución
-   de binarios están implementados y tipados, pero el flujo end-to-end con
-   breakpoints sobre `.bs` no se pudo probar sin dispositivo en red. Ver
-   [docs/DEBUGGING.md](docs/DEBUGGING.md).
+1. **No custom UI**: Zed does not expose webviews/panels to extensions —
+   discovery, remote control and the device list are textual (slash
+   commands) and live logs go to a Zed terminal. See [docs/PARITY.md](docs/PARITY.md).
+2. **No user settings for the LSP** in `zed_extension_api` 0.7.0: fine-grained
+   configuration happens through `bsconfig.json` (which the LSP reads from
+   disk).
+3. **Debugging unvalidated against real hardware**: the adapter and binary
+   resolution are implemented and typed, but the end-to-end flow with
+   breakpoints on `.bs` could not be tested without a device on the network.
+   See [docs/DEBUGGING.md](docs/DEBUGGING.md).
 
-## Estructura
+## Repository layout
 
 ```text
-├── extension.toml           # manifest de la extensión
-├── src/                     # crate WASM (LSP, DAP, slash commands)
-├── grammars/                # tree-sitter vendidas + extendidas
-├── languages/               # config.toml + queries por lenguaje
-├── cli/                     # roku-zed (Node/TS): pipeline Roku completo
-├── snippets/                # snippets de BrightScript/BrighterScript
-├── debug_schemas/           # esquema del escenario DAP
-├── examples/                # brightscript-basic y brighterscript-advanced
-├── scripts/prepare-dev.mjs  # gramáticas locales -> file:// para Zed
+├── extension.toml           # extension manifest
+├── src/                     # WASM crate (LSP, DAP, slash commands)
+├── grammars/                # vendored + extended tree-sitter grammars
+├── languages/               # config.toml + queries per language
+├── cli/                     # roku-zed (Node/TS): full Roku pipeline
+├── snippets/                # BrightScript/BrighterScript snippets
+├── debug_schemas/           # DAP scenario schema
+├── examples/                # brightscript-basic and brighterscript-advanced
+├── scripts/prepare-dev.mjs  # local grammars -> file:// URLs for Zed
 └── docs/                    # PARITY, GRAMMARS, BRIGHTERSCRIPT, DEBUGGING,
                              # INSTALL, LIMITATIONS, TROUBLESHOOTING, RESEARCH
 ```
 
-## Desarrollo
+## Development
 
 ```sh
-# extensión (WASM)
+# extension (WASM)
 cargo build --target wasm32-wasip2 --release
-# en Windows sin MSVC:
+# on Windows without MSVC:
 cargo +stable-x86_64-pc-windows-gnu build --target wasm32-wasip2 --release
 
-# gramáticas
+# grammars
 cd grammars/tree-sitter-brightscript && tree-sitter generate && tree-sitter test
 
-# CLI + smoke tests de los ejemplos
+# CLI + smoke tests against the examples
 cd cli && npm install && npm run build && npm test
 ```
 
-CI en [.github/workflows/ci.yml](.github/workflows/ci.yml): `cargo fmt
---check`, `cargo clippy -D warnings`, build WASM, corpus de las tres
-gramáticas y smoke tests del CLI contra los dos ejemplos.
+CI in [.github/workflows/ci.yml](.github/workflows/ci.yml): `cargo fmt
+--check`, `cargo clippy -D warnings`, WASM build, corpus tests for all three
+grammars, and CLI smoke tests against both examples.
 
-## Contribuir
+## Contributing
 
-- Los PRs deben dejar el repo compilando (`cargo build`, `npm test`).
-- Toda feature nueva de lenguaje se prueba primero con `.bs` (BrighterScript
-  no es opcional: es el caso principal).
-- Lee [docs/RESEARCH.md](docs/RESEARCH.md) antes de tocar gramáticas o APIs
-  de Zed — documenta las trampas verificadas.
+- PRs must leave the repo building (`cargo build`, `npm test`).
+- Every new language feature is tested with `.bs` first (BrighterScript is
+  not optional: it is the primary use case).
+- Read [docs/RESEARCH.md](docs/RESEARCH.md) before touching grammars or Zed
+  APIs — it documents verified gotchas.
 
-## Licencia
+## License
 
 MIT
