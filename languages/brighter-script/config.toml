@@ -1,5 +1,5 @@
 name = "BrighterScript"
-grammar = "brighter-script"
+grammar = "brighterscript"
 path_suffixes = ["bs", "d.bs"]
 line_comments = ["' ", "rem "]
 autoclose_before = "]})\"'`"

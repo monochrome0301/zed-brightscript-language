@@ -11,9 +11,9 @@ languages = ["languages/brightscript", "languages/brighter-script"]
 code_action_kinds = ["QuickFix"]
 
 [grammars.brightscript]
-repository = "file://grammars/tree-sitter-brightscript"
-rev = "HEAD"
+repository = "file:///C:/Users/cristobal%20ovalle/zed-brightscript-language/target/grammar-repos/brightscript"
+rev = "dbfceffb949313061e792a8935ee1b446be393ba"
 
 [grammars.brighterscript]
-repository = "file://grammars/tree-sitter-brighterscript"
-rev = "HEAD"
+repository = "file:///C:/Users/cristobal%20ovalle/zed-brightscript-language/target/grammar-repos/brighterscript"
+rev = "0048f0c805eb4688bf5632402a09c62cc8cea99b"
