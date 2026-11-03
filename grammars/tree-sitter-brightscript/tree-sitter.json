@@ -1,0 +1,17 @@
+{
+  "grammars": [
+    {
+      "name": "brightscript",
+      "camelcase": "BrightScript",
+      "scope": "source.brs"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "BrightScript grammar for tree-sitter, extended for Roku BrightScript",
+    "links": {
+      "repository": "https://github.com/DusanLesan/tree-sitter-brightscript"
+    }
+  }
+}

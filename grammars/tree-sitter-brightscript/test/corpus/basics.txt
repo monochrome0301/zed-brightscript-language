@@ -1,0 +1,560 @@
+==================
+sub and function declarations
+==================
+
+sub onShow(event as object)
+    print "shown"
+end sub
+
+function compute(a as integer, b as float) as float
+    return a * b
+end function
+
+---
+
+(source_file
+  (function_declaration
+    (identifier)
+    (parameter
+      (identifier)
+      (type))
+    (print_statement
+      (string)))
+  (function_declaration
+    (identifier)
+    (parameter
+      (identifier)
+      (type))
+    (parameter
+      (identifier)
+      (type))
+    (type)
+    (return_statement
+      (expression_list
+        (binary_expression
+          (identifier)
+          (identifier))))))
+
+==================
+if / else if / else
+==================
+
+if x > 1 then
+    print "big"
+else if x = 1 then
+    print "one"
+elseif x < 1 then
+    print "small"
+else
+    print "other"
+end if
+
+---
+
+(source_file
+  (if_statement
+    (binary_expression
+      (identifier)
+      (number))
+    (print_statement
+      (string))
+    (else_if_statement
+      (binary_expression
+        (identifier)
+        (number))
+      (print_statement
+        (string)))
+    (else_if_statement
+      (binary_expression
+        (identifier)
+        (number))
+      (print_statement
+        (string)))
+    (else_statement
+      (print_statement
+        (string)))))
+
+==================
+inline if with colon separators
+==================
+
+if ready then start() : count = count + 1
+
+---
+
+(source_file
+  (inline_if_statement
+    (identifier)
+    (function_call
+      (identifier)
+      (argument_list))
+    (assignment_statement
+      (identifier)
+      (expression_list
+        (binary_expression
+          (identifier)
+          (number))))))
+
+==================
+for / next and for each
+==================
+
+for i = 0 to 10 step 2
+    print i
+next
+
+for each item in items
+    print item
+end for
+
+---
+
+(source_file
+  (for_statement
+    (for_numeric_clause
+      (identifier)
+      (number)
+      (number)
+      (number))
+    (print_statement
+      (identifier)))
+  (for_statement
+    (for_each_clause
+      (identifier)
+      (identifier))
+    (print_statement
+      (identifier))))
+
+==================
+while
+==================
+
+while not done
+    done = check()
+end while
+
+while x < 10 do
+    x = x + 1
+end while
+
+---
+
+(source_file
+  (while_statement
+    (unary_expression
+      (identifier))
+    (assignment_statement
+      (identifier)
+      (expression_list
+        (function_call
+          (identifier)
+          (argument_list)))))
+  (while_statement
+    (binary_expression
+      (identifier)
+      (number))
+    (assignment_statement
+      (identifier)
+      (expression_list
+        (binary_expression
+          (identifier)
+          (number))))))
+
+==================
+try / catch
+==================
+
+try
+    risky()
+catch err
+    print err
+end try
+
+---
+
+(source_file
+  (try_statement
+    (function_call
+      (identifier)
+      (argument_list))
+    (catch_clause
+      (identifier)
+      (print_statement
+        (identifier)))))
+
+==================
+print variants
+==================
+
+print
+print "hello"
+print a; b, c
+? "shorthand"
+print (a + b)
+
+---
+
+(source_file
+  (print_statement)
+  (print_statement
+    (string))
+  (print_statement
+    (identifier)
+    (identifier)
+    (identifier))
+  (print_statement
+    (string))
+  (print_statement
+    (parenthesized_expression
+      (binary_expression
+        (identifier)
+        (identifier)))))
+
+==================
+dim and stop
+==================
+
+dim matrix[10, 20]
+dim names[5]
+stop
+
+---
+
+(source_file
+  (dim_statement
+    (dim_declaration
+      (identifier)
+      (number)
+      (number)))
+  (dim_statement
+    (dim_declaration
+      (identifier)
+      (number)))
+  (stop_statement))
+
+==================
+rem comments and apostrophe comments
+==================
+
+rem full line comment
+' apostrophe comment
+name = "value" ' trailing
+code = 1 rem trailing rem
+removing = 1
+
+---
+
+(source_file
+  (comment)
+  (comment)
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (string)))
+  (comment)
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (number)))
+  (comment)
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (number))))
+
+==================
+preprocessor
+==================
+
+#const DEBUG = true
+#if DEBUG then
+    print "debug on"
+#else if STAGING then
+    print "staging"
+#else
+    print "release"
+#end if
+#error Missing configuration
+
+---
+
+(source_file
+  (preproc_const_statement
+    (identifier)
+    (true))
+  (preproc_if_statement
+    (identifier)
+    (print_statement
+      (string))
+    (preproc_else_if_clause
+      (identifier)
+      (print_statement
+        (string)))
+    (preproc_else_clause
+      (print_statement
+        (string))))
+  (preproc_error_statement))
+
+==================
+associative arrays
+==================
+
+config = { name: "box", port: 80 }
+prefs = {
+    name: "x"
+    count: 2
+    nested: { a: 1, b: 2 }
+}
+
+---
+
+(source_file
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (associative_array
+        (field_list
+          (field
+            (identifier)
+            (string))
+          (field
+            (identifier)
+            (number))))))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (associative_array
+        (field_list
+          (field
+            (identifier)
+            (string))
+          (field
+            (identifier)
+            (number))
+          (field
+            (identifier)
+            (associative_array
+              (field_list
+                (field
+                  (identifier)
+                  (number))
+                (field
+                  (identifier)
+                  (number))))))))))
+
+==================
+numeric literals
+==================
+
+a = 42
+b = -3.14
+c = &hFF
+d = 1e5
+e = 2.5e-3
+
+---
+
+(source_file
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (number)))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (number)))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (number)))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (number)))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (number))))
+
+==================
+labels and goto
+==================
+
+start:
+    print "loop"
+goto start
+
+---
+
+(source_file
+  (function_call
+    (identifier)
+    (identifier)
+    (argument_list
+      (string)))
+  (goto_statement
+    (identifier)))
+
+==================
+method calls and indexing
+==================
+
+task:run()
+obj:method(arg)
+value = list[0]
+child = scene.findNode("root")
+maybe = obj?.missing
+
+---
+
+(source_file
+  (function_call
+    (identifier)
+    (identifier)
+    (argument_list))
+  (label_statement
+    (identifier))
+  (function_call
+    (identifier)
+    (argument_list
+      (expression_list
+        (identifier))))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (bracket_index_expression
+        (identifier)
+        (number))))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (function_call
+        (dot_index_expression
+          (identifier)
+          (identifier))
+        (argument_list
+          (expression_list
+            (string))))))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (dot_index_expression
+        (identifier)
+        (optional_chain)
+        (identifier)))))
+
+==================
+strings with doubled quotes
+==================
+
+msg = "he said ""hi"""
+empty = ""
+
+---
+
+(source_file
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (string)))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (string))))
+
+==================
+typed parameters and returns
+==================
+
+function isReady(flags as object) as boolean
+    return true
+end function
+
+sub log(msg as string, level as integer)
+    print msg
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    (identifier)
+    (parameter
+      (identifier)
+      (type))
+    (type)
+    (return_statement
+      (expression_list
+        (true))))
+  (function_declaration
+    (identifier)
+    (parameter
+      (identifier)
+      (type))
+    (parameter
+      (identifier)
+      (type))
+    (print_statement
+      (identifier))))
+
+==================
+exit loops and return
+==================
+
+for i = 0 to 5
+    if i = 3 then exit for
+end for
+
+while true
+    exit while
+end while
+
+---
+
+(source_file
+  (for_statement
+    (for_numeric_clause
+      (identifier)
+      (number)
+      (number))
+    (inline_if_statement
+      (binary_expression
+        (identifier)
+        (number))
+      (exit_statement)))
+  (while_statement
+    (true)
+    (exit_statement)))
+
+==================
+unary operators
+==================
+
+count = #items
+neg = -count
+flip = not ready
+mask = ~value
+
+---
+
+(source_file
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (unary_expression
+        (identifier))))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (unary_expression
+        (identifier))))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (unary_expression
+        (identifier))))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (unary_expression
+        (identifier)))))
