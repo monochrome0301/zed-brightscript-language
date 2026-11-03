@@ -14,7 +14,9 @@ mod sideload;
 mod transpile;
 mod types;
 
-use zed_extension_api::{Range, Result, SlashCommand, SlashCommandOutput, SlashCommandOutputSection, Worktree};
+use zed_extension_api::{
+    Range, Result, SlashCommand, SlashCommandOutput, SlashCommandOutputSection, Worktree,
+};
 
 /// Dispatches a slash command by name, returning its panel output.
 pub fn run(

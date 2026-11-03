@@ -6,7 +6,7 @@
 //! own configuration.
 
 use zed_extension_api::serde_json::json;
-use zed_extension_api::{Command, Os, Result, Worktree, current_platform};
+use zed_extension_api::{current_platform, Command, Os, Result, Worktree};
 
 /// The npm package that provides the BrighterScript compiler and LSP.
 pub const BRIGHTERSCRIPT_PACKAGE: &str = "brighterscript";
@@ -64,7 +64,9 @@ pub fn command(worktree: &Worktree) -> Result<Command> {
 /// object. The LSP applies its own defaults when values are missing, and
 /// per-project behavior is driven by `bsconfig.json` which it reads from
 /// disk directly.
-pub fn workspace_configuration(_worktree: &Worktree) -> Result<Option<zed_extension_api::serde_json::Value>> {
+pub fn workspace_configuration(
+    _worktree: &Worktree,
+) -> Result<Option<zed_extension_api::serde_json::Value>> {
     Ok(Some(json!({
         "brightscript": {},
         "files": {},

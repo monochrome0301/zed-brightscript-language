@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  rust:
+    name: Rust (fmt, clippy, wasm)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-wasip2
+          components: rustfmt, clippy
+      - name: cargo fmt --check
+        run: cargo fmt --check
+      - name: cargo clippy
+        run: cargo clippy --target wasm32-wasip2 -- -D warnings
+      - name: cargo test
+        run: cargo test
+      - name: build wasm extension
+        run: cargo build --target wasm32-wasip2 --release
+
+  grammars:
+    name: tree-sitter grammars
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        grammar: [tree-sitter-brightscript, tree-sitter-brighterscript, tree-sitter-roku-xml]
+    defaults:
+      run:
+        working-directory: grammars/${{ matrix.grammar }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm exec --yes -- tree-sitter-cli@0.27.1 generate
+      - run: npm exec --yes -- tree-sitter-cli@0.27.1 test
+
+  cli:
+    name: roku-zed CLI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+        working-directory: cli
+      - run: npm run build
+        working-directory: cli
+      - run: npm test
+        working-directory: cli

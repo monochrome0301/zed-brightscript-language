@@ -1,7 +1,7 @@
 //! Resolution and invocation of the `roku-zed` CLI (see `cli/` in this
 //! repository) from the extension's slash commands.
 
-use zed_extension_api::{Command, Os, Result, Worktree, current_platform};
+use zed_extension_api::{current_platform, Command, Os, Result, Worktree};
 
 /// Name of the npm package that ships the `roku-zed` CLI.
 pub const CLI_PACKAGE: &str = "roku-zed-cli";

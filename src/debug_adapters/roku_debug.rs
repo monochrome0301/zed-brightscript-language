@@ -7,8 +7,8 @@
 
 use zed_extension_api::serde_json::Value;
 use zed_extension_api::{
-    self as zed, DebugAdapterBinary, DebugTaskDefinition, Os, Result, Worktree,
-    StartDebuggingRequestArguments, StartDebuggingRequestArgumentsRequest, current_platform,
+    self as zed, current_platform, DebugAdapterBinary, DebugTaskDefinition, Os, Result,
+    StartDebuggingRequestArguments, StartDebuggingRequestArgumentsRequest, Worktree,
 };
 
 /// npm package + binary name of the roku debug adapter.
@@ -75,9 +75,9 @@ pub fn binary(
                 ),
                 None => {
                     return Err(format!(
-                        "found a local `{ROKU_DEBUG_PACKAGE}` install but no `node` binary on $PATH; \
+                    "found a local `{ROKU_DEBUG_PACKAGE}` install but no `node` binary on $PATH; \
                          install Node.js and restart Zed"
-                    ));
+                ));
                 }
             }
         } else {

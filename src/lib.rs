@@ -61,10 +61,7 @@ impl zed::Extension for BrightscriptExtension {
         debug_adapters::roku_debug::request_kind(adapter_name, config)
     }
 
-    fn dap_config_to_scenario(
-        &mut self,
-        config: DebugConfig,
-    ) -> Result<DebugScenario, String> {
+    fn dap_config_to_scenario(&mut self, config: DebugConfig) -> Result<DebugScenario, String> {
         let request = match config.request {
             zed::DebugRequest::Launch(_) => "launch",
             zed::DebugRequest::Attach(_) => "attach",
