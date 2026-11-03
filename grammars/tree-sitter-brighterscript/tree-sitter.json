@@ -1,0 +1,17 @@
+{
+  "grammars": [
+    {
+      "name": "brighterscript",
+      "camelcase": "BrighterScript",
+      "scope": "source.bs"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "BrighterScript grammar for tree-sitter",
+    "links": {
+      "repository": "https://github.com/rokucommunity/brighterscript"
+    }
+  }
+}

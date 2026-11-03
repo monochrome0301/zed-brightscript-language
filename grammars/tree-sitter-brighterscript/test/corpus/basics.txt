@@ -1,0 +1,543 @@
+==================
+class with fields, methods and new
+==================
+
+class Person extends Base
+    public name as string
+    private age = 5
+    protected active as boolean
+
+    sub new(name as string)
+        m.name = name
+    end sub
+
+    override function getName() as string
+        return m.name
+    end function
+
+    private sub reset()
+        super.reset()
+    end sub
+end class
+
+worker = new Person("bob")
+
+---
+
+(source_file
+  (class_declaration
+    (identifier)
+    (type
+      (type_reference
+        (identifier)))
+    (class_body
+      (class_field
+        (identifier)
+        (type))
+      (class_field
+        (identifier)
+        (number))
+      (class_field
+        (identifier)
+        (type))
+      (function_declaration
+        (identifier)
+        (parameter
+          (identifier)
+          (type))
+        (assignment_statement
+          (dot_index_expression
+            (identifier)
+            (identifier))
+          (expression_list
+            (identifier))))
+      (function_declaration
+        (identifier)
+        (type)
+        (return_statement
+          (expression_list
+            (dot_index_expression
+              (identifier)
+              (identifier)))))
+      (function_declaration
+        (identifier)
+        (function_call
+          (dot_index_expression
+            (identifier)
+            (identifier))
+          (argument_list)))))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (new_expression
+        (type_reference
+          (identifier))
+        (argument_list
+          (expression_list
+            (string)))))))
+
+==================
+interface declaration
+==================
+
+interface Vehicle extends Mover
+    speed as float
+    function drive(distance as integer) as boolean
+    sub stop()
+end interface
+
+---
+
+(source_file
+  (interface_declaration
+    (identifier)
+    (type
+      (type_reference
+        (identifier)))
+    (interface_body
+      (interface_field
+        (identifier)
+        (type))
+      (interface_method
+        (identifier)
+        (parameter
+          (identifier)
+          (type))
+        (type))
+      (interface_method
+        (identifier)))))
+
+==================
+enum declaration
+==================
+
+enum Color
+    red
+    green
+    blue
+end enum
+
+enum Level as integer
+    low = 1
+    high = 10
+end enum
+
+---
+
+(source_file
+  (enum_declaration
+    (identifier)
+    (enum_body
+      (enum_member
+        (identifier))
+      (enum_member
+        (identifier))
+      (enum_member
+        (identifier))))
+  (enum_declaration
+    (identifier)
+    (type)
+    (enum_body
+      (enum_member
+        (identifier)
+        (number))
+      (enum_member
+        (identifier)
+        (number)))))
+
+==================
+namespace with members
+==================
+
+namespace Utils.Deep
+    const MAX = 100
+
+    function helper(x as integer) as integer
+        return x * MAX
+    end function
+
+    class Widget
+        public size as integer
+    end class
+end namespace
+
+---
+
+(source_file
+  (namespace_declaration
+    (namespace_name
+      (identifier)
+      (identifier))
+    (const_statement
+      (identifier)
+      (number))
+    (function_declaration
+      (identifier)
+      (parameter
+        (identifier)
+        (type))
+      (type)
+      (return_statement
+        (expression_list
+          (binary_expression
+            (identifier)
+            (identifier)))))
+    (class_declaration
+      (identifier)
+      (class_body
+        (class_field
+          (identifier)
+          (type))))))
+
+==================
+import and const
+==================
+
+import "pkg:fonts"
+import "components/Button.bs"
+
+const PI = 3.14
+
+---
+
+(source_file
+  (import_statement
+    (string))
+  (import_statement
+    (string))
+  (const_statement
+    (identifier)
+    (number)))
+
+==================
+annotations
+==================
+
+@log
+@cache(ttl = 60)
+function heavy() as void
+    return invalid
+end function
+
+---
+
+(source_file
+  (annotation
+    (identifier))
+  (annotation
+    (identifier)
+    (argument_list
+      (expression_list
+        (binary_expression
+          (identifier)
+          (number)))))
+  (function_declaration
+    (identifier)
+    (type)
+    (return_statement
+      (expression_list
+        (invalid)))))
+
+==================
+typed declarations and unions
+==================
+
+count as integer = 5
+name as string
+flag as boolean = true
+maybe as string?
+definitely as integer!
+either as string | integer
+handler as function(a as string) as boolean
+nothing as void
+
+---
+
+(source_file
+  (typed_declaration_statement
+    (identifier)
+    (type)
+    (expression_list
+      (number)))
+  (typed_declaration_statement
+    (identifier)
+    (type))
+  (typed_declaration_statement
+    (identifier)
+    (type)
+    (expression_list
+      (true)))
+  (typed_declaration_statement
+    (identifier)
+    (type))
+  (typed_declaration_statement
+    (identifier)
+    (type
+      (type_reference
+        (identifier))))
+  (typed_declaration_statement
+    (identifier)
+    (type
+      (union_type)))
+  (typed_declaration_statement
+    (identifier)
+    (type
+      (function_type
+        (parameter
+          (identifier)
+          (type))
+        (type))))
+  (typed_declaration_statement
+    (identifier)
+    (type)))
+
+==================
+ternary, null coalescing, optional chaining, logical ops
+==================
+
+label = ready ? "yes" : "no"
+value = config ?? defaults
+deep = root?.child?.leaf
+ok = a && b || c
+
+---
+
+(source_file
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (ternary_expression
+        (identifier)
+        (string)
+        (string))))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (binary_expression
+        (identifier)
+        (identifier))))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (dot_index_expression
+        (dot_index_expression
+          (identifier)
+          (optional_chain)
+          (identifier))
+        (optional_chain)
+        (identifier))))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (binary_expression
+        (binary_expression
+          (identifier)
+          (identifier))
+        (identifier)))))
+
+==================
+compound assignment
+==================
+
+total += 5
+score -= 1
+rate *= 2
+ratio /= 4
+
+---
+
+(source_file
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (number)))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (number)))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (number)))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (number))))
+
+==================
+template strings
+==================
+
+greeting = `hello ${name}, you are ${age + 1} years old`
+plain = `no interpolation`
+tag = `${prefix}_suffix`
+
+---
+
+(source_file
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (template_string
+        (template_interpolation
+          (identifier))
+        (template_interpolation
+          (binary_expression
+            (identifier)
+            (number))))))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (template_string)))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (template_string
+        (template_interpolation
+          (identifier))))))
+
+==================
+throw and try/catch
+==================
+
+try
+    throw "bad input"
+catch err
+    print err
+end try
+
+---
+
+(source_file
+  (try_statement
+    (throw_statement
+      (string))
+    (catch_clause
+      (identifier)
+      (print_statement
+        (identifier)))))
+
+==================
+super expressions
+==================
+
+sub init()
+    super.init()
+end sub
+
+sub ctor()
+    super(1, 2)
+end sub
+
+---
+
+(source_file
+  (function_declaration
+    (identifier)
+    (function_call
+      (dot_index_expression
+        (identifier)
+        (identifier))
+      (argument_list)))
+  (function_declaration
+    (identifier)
+    (function_call
+      (identifier)
+      (argument_list
+        (expression_list
+          (number)
+          (number))))))
+
+==================
+classes still parse plain brightscript
+==================
+
+sub main()
+    print "hello"
+end sub
+
+for i = 0 to 10 step 2
+    print i
+next
+
+dim arr[5]
+arr[0] = &hFF
+
+#const USE_CACHE = true
+#if USE_CACHE
+    print "cached"
+#end if
+
+---
+
+(source_file
+  (function_declaration
+    (identifier)
+    (print_statement
+      (string)))
+  (for_statement
+    (for_numeric_clause
+      (identifier)
+      (number)
+      (number)
+      (number))
+    (print_statement
+      (identifier)))
+  (dim_statement
+    (dim_declaration
+      (identifier)
+      (number)))
+  (assignment_statement
+    (bracket_index_expression
+      (identifier)
+      (number))
+    (expression_list
+      (number)))
+  (preproc_const_statement
+    (identifier)
+    (true))
+  (preproc_if_statement
+    (identifier)
+    (print_statement
+      (string))))
+
+==================
+namespaced type references and access
+==================
+
+widget as Utils.Deep.Widget = new Utils.Deep.Widget()
+Utils.Deep.helper(3)
+result = Utils.MAX
+
+---
+
+(source_file
+  (typed_declaration_statement
+    (identifier)
+    (type
+      (type_reference
+        (identifier)
+        (identifier)
+        (identifier)))
+    (expression_list
+      (new_expression
+        (type_reference
+          (identifier)
+          (identifier)
+          (identifier))
+        (argument_list))))
+  (function_call
+    (dot_index_expression
+      (dot_index_expression
+        (identifier)
+        (identifier))
+      (identifier))
+    (argument_list
+      (expression_list
+        (number))))
+  (assignment_statement
+    (identifier)
+    (expression_list
+      (dot_index_expression
+        (identifier)
+        (identifier)))))

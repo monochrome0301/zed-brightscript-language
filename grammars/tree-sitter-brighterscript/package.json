@@ -1,0 +1,12 @@
+{
+  "name": "tree-sitter-brighterscript",
+  "version": "0.1.0",
+  "description": "BrighterScript grammar for tree-sitter",
+  "main": "bindings/node",
+  "keywords": [
+    "brighterscript",
+    "roku",
+    "tree-sitter"
+  ],
+  "license": "MIT"
+}
