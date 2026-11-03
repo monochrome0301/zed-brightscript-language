@@ -5,15 +5,19 @@ schema_version = 1
 description = "BrightScript and BrighterScript language support for Zed: tree-sitter highlighting, the BrighterScript language server, and Roku build/sideload commands."
 authors = ["Cristobal Ovalle"]
 repository = "https://github.com/cristobal-ovalle/zed-brightscript-language"
-languages = ["languages/brightscript", "languages/brighter-script"]
+languages = ["languages/brightscript", "languages/brighter-script", "languages/scenegraph-xml"]
 
 [language_servers.brighterscript]
 code_action_kinds = ["QuickFix"]
 
 [grammars.brightscript]
-repository = "file:///C:/Users/cristobal%20ovalle/zed-brightscript-language/target/grammar-repos/brightscript"
-rev = "dbfceffb949313061e792a8935ee1b446be393ba"
+repository = "file://grammars/tree-sitter-brightscript"
+rev = "main"
 
 [grammars.brighterscript]
-repository = "file:///C:/Users/cristobal%20ovalle/zed-brightscript-language/target/grammar-repos/brighterscript"
-rev = "0048f0c805eb4688bf5632402a09c62cc8cea99b"
+repository = "file://grammars/tree-sitter-brighterscript"
+rev = "main"
+
+[grammars.roku_xml]
+repository = "file://grammars/tree-sitter-roku-xml"
+rev = "main"

@@ -1,0 +1,7 @@
+{
+  "name": "tree-sitter-roku-xml",
+  "version": "0.1.0",
+  "description": "XML grammar for tree-sitter (roku-xml, SceneGraph XML support), merged from tree-sitter-grammars/tree-sitter-xml",
+  "main": "bindings/node",
+  "license": "MIT"
+}

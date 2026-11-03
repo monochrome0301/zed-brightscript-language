@@ -28,6 +28,7 @@ const manifestPath = path.join(root, 'extension.toml');
 const grammarDirs = {
   brightscript: 'grammars/tree-sitter-brightscript',
   brighterscript: 'grammars/tree-sitter-brighterscript',
+  roku_xml: 'grammars/tree-sitter-roku-xml',
 };
 
 function git(cwd, args) {

@@ -1,0 +1,17 @@
+{
+  "grammars": [
+    {
+      "name": "roku_xml",
+      "camelcase": "RokuXml",
+      "scope": "text.xml.roku"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "XML grammar for tree-sitter (renamed roku-xml)",
+    "links": {
+      "repository": "https://github.com/tree-sitter-grammars/tree-sitter-xml"
+    }
+  }
+}
