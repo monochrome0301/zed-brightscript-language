@@ -5,9 +5,11 @@
 //! the bundled Roku CLI (transpile, build, package, sideload, ...).
 
 mod cli;
+mod commands;
+mod language_servers;
 
 use zed_extension_api::{
-    self as zed, Command, LanguageServerId, Result, Worktree,
+    self as zed, Command, LanguageServerId, Result, SlashCommand, SlashCommandOutput, Worktree,
 };
 
 struct BrightscriptExtension;
@@ -22,7 +24,24 @@ impl zed::Extension for BrightscriptExtension {
         _language_server_id: &LanguageServerId,
         worktree: &Worktree,
     ) -> Result<Command> {
-        cli::brighterscript_lsp_command(worktree)
+        language_servers::brighterscript::command(worktree)
+    }
+
+    fn language_server_workspace_configuration(
+        &mut self,
+        _language_server_id: &LanguageServerId,
+        worktree: &Worktree,
+    ) -> Result<Option<zed_extension_api::serde_json::Value>> {
+        language_servers::brighterscript::workspace_configuration(worktree)
+    }
+
+    fn run_slash_command(
+        &self,
+        command: SlashCommand,
+        args: Vec<String>,
+        worktree: Option<&Worktree>,
+    ) -> Result<SlashCommandOutput, String> {
+        commands::run(&command, args, worktree)
     }
 }
 

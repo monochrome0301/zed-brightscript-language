@@ -10,6 +10,44 @@ languages = ["languages/brightscript", "languages/brighter-script", "languages/s
 [language_servers.brighterscript]
 code_action_kinds = ["QuickFix"]
 
+[slash_commands.roku-init]
+description = "Generate .zed/tasks.json, .zed/debug.json and .zed/settings.json for a Roku project (plus a minimal bsconfig.json when missing)."
+
+[slash_commands.roku-transpile]
+description = "Transpile BrighterScript (.bs) to BrightScript (.brs) using the project's bsconfig.json."
+
+[slash_commands.roku-build]
+description = "Build the project: transpile (when needed), stage and zip into out/."
+
+[slash_commands.roku-package]
+description = "Package the project into a signed zip (uses signingPassword from bsconfig.json when present)."
+
+[slash_commands.roku-sideload]
+description = "Sideload the built zip to a Roku device and launch the channel."
+
+[slash_commands.roku-deploy]
+description = "Build and sideload in one step."
+
+[slash_commands.roku-discover]
+description = "Discover Roku devices on the network (SSDP/ECP) with IP, model and status."
+
+[slash_commands.roku-logs]
+description = "Capture device logs over ECP (bounded capture; use the generated 'roku: logs' task for live streaming)."
+
+[slash_commands.roku-lint]
+description = "Run bslint diagnostics when the project is configured for it."
+
+[slash_commands.roku-types]
+description = "Install or update roku-types for .d.bs type completions."
+
+[slash_commands.roku-key]
+description = "Send a remote-control keypress to a Roku device via ECP (e.g. home, up, select)."
+requires_argument = true
+
+[slash_commands.roku-deeplink]
+description = "Launch a deeplink on a Roku device via ECP."
+requires_argument = true
+
 [grammars.brightscript]
 repository = "file://grammars/tree-sitter-brightscript"
 rev = "main"
