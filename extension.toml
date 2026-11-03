@@ -4,7 +4,7 @@ version = "0.1.0"
 schema_version = 1
 description = "BrightScript and BrighterScript language support for Zed: tree-sitter highlighting, the BrighterScript language server, and Roku build/sideload commands."
 authors = ["Cristobal Ovalle"]
-repository = "https://github.com/cristobal-ovalle/zed-brightscript-language"
+repository = "https://github.com/monochrome0301/zed-brightscript-language"
 languages = ["languages/brightscript", "languages/brighter-script", "languages/scenegraph-xml"]
 snippets = ["snippets/brightscript.json"]
 
