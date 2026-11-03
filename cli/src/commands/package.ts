@@ -1,10 +1,17 @@
 import * as path from 'path';
 import { buildOptionsFrom, loadBsConfig, CommonArgs, fileExists } from './common';
+import { delegateNpmBuild } from './npmscripts';
 import { resolveBuildFields } from '../bsconfig';
 import { buildProject } from './build';
 
 /** `roku-zed package` — build a signed .pkg using signingPassword. */
 export async function packageCmd(args: CommonArgs): Promise<void> {
+    // Same delegation as build: the project's npm chain already creates its
+    // own package (bsc --create-package). For a device-signed .pkg instead,
+    // pass --no-npm to force the builtin sign pipeline.
+    if (!args.noNpm && delegateNpmBuild(args.cwd, 'package')) {
+        return;
+    }
     const info = loadBsConfig(args);
     const fields = resolveBuildFields(args.cwd, info.config, {
         outDir: args.outDir,

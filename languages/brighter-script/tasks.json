@@ -1,0 +1,117 @@
+[
+  {
+    "label": "roku: transpile",
+    "command": "npx",
+    "args": [
+      "-y",
+      "roku-zed-cli",
+      "transpile"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "roku: build",
+    "command": "npm",
+    "args": [
+      "run",
+      "build:dev"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "roku: package",
+    "command": "npm",
+    "args": [
+      "run",
+      "build:dev"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "roku: sideload",
+    "command": "npx",
+    "args": [
+      "-y",
+      "roku-zed-cli",
+      "sideload"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "roku: deploy",
+    "command": "npx",
+    "args": [
+      "-y",
+      "roku-zed-cli",
+      "deploy"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "roku: discover",
+    "command": "npx",
+    "args": [
+      "-y",
+      "roku-zed-cli",
+      "discover"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "roku: lint",
+    "command": "npx",
+    "args": [
+      "-y",
+      "roku-zed-cli",
+      "lint"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "roku: logs",
+    "command": "npx",
+    "args": [
+      "-y",
+      "roku-zed-cli",
+      "logs"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "roku: types",
+    "command": "npx",
+    "args": [
+      "-y",
+      "roku-zed-cli",
+      "types"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  }
+]

@@ -36,10 +36,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.packageCmd = packageCmd;
 const path = __importStar(require("path"));
 const common_1 = require("./common");
+const npmscripts_1 = require("./npmscripts");
 const bsconfig_1 = require("../bsconfig");
 const build_1 = require("./build");
 /** `roku-zed package` — build a signed .pkg using signingPassword. */
 async function packageCmd(args) {
+    // Same delegation as build: the project's npm chain already creates its
+    // own package (bsc --create-package). For a device-signed .pkg instead,
+    // pass --no-npm to force the builtin sign pipeline.
+    if (!args.noNpm && (0, npmscripts_1.delegateNpmBuild)(args.cwd, 'package')) {
+        return;
+    }
     const info = (0, common_1.loadBsConfig)(args);
     const fields = (0, bsconfig_1.resolveBuildFields)(args.cwd, info.config, {
         outDir: args.outDir,

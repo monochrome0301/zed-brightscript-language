@@ -2,10 +2,16 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { buildProject, BuildOptions } from './build';
 import { buildOptionsFrom, loadBsConfig, CommonArgs, fileExists } from './common';
+import { delegateNpmBuild } from './npmscripts';
 import { resolveBuildFields } from '../bsconfig';
 
 /** `roku-zed build` — transpile (when applicable) + stage + zip into out/. */
 export async function build(args: CommonArgs): Promise<void> {
+    // Projects with their own npm build chain (bs-plugins, monorepos) get the
+    // exact same build their VS Code task runs; --no-npm forces the builtin.
+    if (!args.noNpm && delegateNpmBuild(args.cwd, 'build')) {
+        return;
+    }
     const started = Date.now();
     const info = loadBsConfig(args);
 

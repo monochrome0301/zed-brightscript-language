@@ -1,6 +1,6 @@
 id = "brightscript"
 name = "BrightScript / BrighterScript"
-version = "0.1.0"
+version = "1.4.0"
 schema_version = 1
 description = "BrightScript and BrighterScript language support for Zed: tree-sitter highlighting, the BrighterScript language server, and Roku build/sideload commands."
 authors = ["Cristobal Ovalle"]

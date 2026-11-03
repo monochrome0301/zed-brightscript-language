@@ -15,6 +15,8 @@ export interface CommonArgs {
     bsconfig?: string;
     once?: boolean;
     level?: string;
+    /** Skip npm-script delegation and force the built-in pipeline. */
+    noNpm?: boolean;
 }
 
 const FLAGS_WITH_VALUES = new Set([
@@ -74,6 +76,9 @@ export function parseCommonArgs(argv: string[]): CommonArgs {
                 break;
             case '--level':
                 args.level = next();
+                break;
+            case '--no-npm':
+                args.noNpm = true;
                 break;
             default:
                 break;

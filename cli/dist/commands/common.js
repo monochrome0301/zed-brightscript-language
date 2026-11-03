@@ -100,6 +100,9 @@ function parseCommonArgs(argv) {
             case '--level':
                 args.level = next();
                 break;
+            case '--no-npm':
+                args.noNpm = true;
+                break;
             default:
                 break;
         }

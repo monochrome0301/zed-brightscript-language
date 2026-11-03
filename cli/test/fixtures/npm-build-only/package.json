@@ -1,0 +1,7 @@
+{
+    "name": "npm-build-only-fixture",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "echo DELEGATED-BUILD-PLAIN"
+    }
+}

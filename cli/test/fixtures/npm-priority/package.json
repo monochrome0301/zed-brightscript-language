@@ -1,0 +1,9 @@
+{
+    "name": "npm-priority-fixture",
+    "version": "1.0.0",
+    "scripts": {
+        "build:dev": "echo DELEGATED-BUILD",
+        "build": "echo should-not-run",
+        "build:prod": "echo should-not-run"
+    }
+}

@@ -63,5 +63,24 @@ try {
 }
 assert(stderr.includes('Invalid bsconfig.json') && /line \d+, column \d+/.test(stderr), 'bsconfig JSON errors report line and column');
 
+console.log('cli: npm-script delegation');
+const { findNpmBuildScript } = require('../dist/commands/npmscripts.js');
+assert(findNpmBuildScript(path.join(__dirname, 'fixtures/no-package')) === null, 'no package.json -> no delegation');
+assert(findNpmBuildScript(path.join(__dirname, 'fixtures/npm-priority')) === 'build:dev', 'build:dev wins over build/build:prod');
+assert(findNpmBuildScript(path.join(__dirname, 'fixtures/npm-build-only')) === 'build', 'falls back to plain build');
+
+console.log('cli: build delegates to the project npm script');
+let delegated = '';
+try {
+    delegated = execFileSync(process.execPath, [cli, '--cwd', path.join(__dirname, 'fixtures/npm-priority'), 'build'], { cwd: root, encoding: 'utf8' });
+} catch (err) {
+    delegated = String(err.stdout ?? '') + String(err.stderr ?? '');
+}
+assert(delegated.includes('npm run build:dev') && delegated.includes('DELEGATED-BUILD'), 'roku-zed build runs the project npm script');
+
+console.log('cli: --no-npm forces the builtin pipeline');
+run(['--cwd', path.join(__dirname, 'fixtures/npm-priority'), '--no-npm', 'build']);
+assert(fs.existsSync(path.join(__dirname, 'fixtures/npm-priority/out/package.zip')), '--no-npm produced a zip with the builtin pipeline');
+
 console.log(failures === 0 ? '\nall CLI smoke tests passed' : `\n${failures} test(s) failed`);
 process.exit(failures === 0 ? 0 : 1);

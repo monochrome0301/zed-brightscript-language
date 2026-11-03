@@ -26,9 +26,9 @@ node scripts/prepare-dev.mjs   # prepara las gramáticas locales para git fetch
 | Resaltado | Gramáticas tree-sitter vendidas y extendidas: BrightScript (`.brs`), BrighterScript (`.bs`, `.d.bs`), XML SceneGraph (`.xml`) con inyecciones para `text/brightscript`, `text/brighterscript` y CDATA |
 | Lenguaje | LSP `brighterscript` (`bsc --lsp`): diagnósticos, hover, completion, go-to-def, rename, references, folding, format — para `.brs` **y** `.bs` |
 | Outline | `outline.scm` jerárquico: subs/funciones, clases, interfaces, enums, namespaces, `#const` |
-| Build | CLI `roku-zed` (Node) que reutiliza **BrighterScript** y **roku-deploy**: `transpile`, `build`, `package`, `sideload`, `deploy`, `discover`, `logs`, `lint`, `types`, `init`, `key`, `deeplink` |
+| Build | CLI `roku-zed` (Node) que reutiliza **BrighterScript** y **roku-deploy**: `transpile`, `build`, `package`, `sideload`, `deploy`, `discover`, `logs`, `lint`, `types`, `init`, `key`, `deeplink`. Si el proyecto define scripts npm de build (`build:dev` / `build` / `build:prod`), `build` y `package` delegan en ellos — reproduciendo el build propio del proyecto (bs-plugins custom, cadenas monorepo). `--no-npm` fuerza el pipeline interno |
 | Slash commands | `/roku-transpile`, `/roku-build`, `/roku-package`, `/roku-sideload`, `/roku-deploy`, `/roku-discover`, `/roku-logs`, `/roku-lint`, `/roku-types`, `/roku-init`, `/roku-key`, `/roku-deeplink` |
-| Tareas | `/roku-init` genera `.zed/tasks.json` (`roku: transpile/build/package/sideload/deploy/lint/logs/types`), `.zed/debug.json` y `.zed/settings.json` |
+| Tareas | Plantillas de tarea integradas (`roku: transpile/build/package/sideload/deploy/discover/lint/logs/types`) disponibles desde `task: spawn` con un `.brs`/`.bs` abierto — sin configuración previa; `/roku-init` sigue generando `.zed/tasks.json` (ajustable por proyecto), `.zed/debug.json` y `.zed/settings.json` |
 | Debug | Adaptador DAP `roku-debug --dap` (stdio) con `sourceMaps: true` — breakpoints sobre los `.bs` originales |
 | Snippets | `snippets/brightscript.json` (subs, funciones, clases, interfaces, enums, namespaces, template strings) |
 
@@ -56,8 +56,12 @@ En la paleta del assistant panel de Zed:
 /roku-logs                # captura de logs del dispositivo (ECP console)
 ```
 
-O bien usa las tareas `roku: build` / `roku: deploy` / `roku: logs` de la
-paleta de tareas (`task: spawn`), generadas por `/roku-init`.
+O bien usa las tareas integradas `roku: build` / `roku: deploy` / `roku: logs`
+de la paleta de tareas de Zed (`task: spawn` en la paleta de comandos): con un
+`.brs`/`.bs` abierto, las tareas vienen con la extensión — sin necesidad de
+`/roku-init`. En proyectos que compilan con scripts npm (p. ej. playlet),
+`roku: build` ejecuta la cadena propia del proyecto, así que el resultado es
+idéntico al task de build de VS Code.
 
 ## Matriz de paridad
 

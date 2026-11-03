@@ -38,9 +38,15 @@ const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const build_1 = require("./build");
 const common_1 = require("./common");
+const npmscripts_1 = require("./npmscripts");
 const bsconfig_1 = require("../bsconfig");
 /** `roku-zed build` — transpile (when applicable) + stage + zip into out/. */
 async function build(args) {
+    // Projects with their own npm build chain (bs-plugins, monorepos) get the
+    // exact same build their VS Code task runs; --no-npm forces the builtin.
+    if (!args.noNpm && (0, npmscripts_1.delegateNpmBuild)(args.cwd, 'build')) {
+        return;
+    }
     const started = Date.now();
     const info = (0, common_1.loadBsConfig)(args);
     if (!info.filePath) {

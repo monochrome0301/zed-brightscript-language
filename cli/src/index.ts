@@ -19,7 +19,9 @@ Usage: roku-zed [--cwd <dir>] <command> [args] [flags]
 Commands:
   transpile            transpile .bs -> .brs using bsconfig.json (no zip)
   build                transpile (when needed) + stage + zip into out/
+                       (delegates to the project's npm build script when one exists)
   package              build a signed .pkg (needs signingPassword)
+                       (delegates to the project's npm build script when one exists)
   sideload             deploy the built zip to a device and launch it
   deploy               build + sideload
   discover             list Roku devices on the network (SSDP/ECP)
@@ -37,6 +39,7 @@ Common flags:
   --out-dir <dir>      override outDir
   --out-file <name>    override outFile
   --bsconfig <path>    explicit bsconfig.json path
+  --no-npm             skip npm-script delegation; force the builtin pipeline
   --level <level>      log level filter for \`logs\` (all, error, errors, info, print)
 `;
 
