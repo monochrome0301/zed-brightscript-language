@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="DemoWidget" extends="Group">
+    <script type="text/brighterscript" uri="Widget.bs" />
+    <children>
+        <Label id="hello" text="Demo" />
+    </children>
+</component>

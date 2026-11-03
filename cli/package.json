@@ -1,0 +1,31 @@
+{
+  "name": "roku-zed-cli",
+  "version": "0.1.0",
+  "description": "Roku build/deploy tooling used by the zed-brightscript-language extension: transpile, build, package, sideload, discover, logs, lint and ECP helpers.",
+  "main": "dist/index.js",
+  "bin": {
+    "roku-zed": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node test/run.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "roku",
+    "brightscript",
+    "brighterscript",
+    "zed"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "brighterscript": "^0.73.8",
+    "roku-deploy": "^3.18.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "@types/node": "^22.0.0"
+  }
+}

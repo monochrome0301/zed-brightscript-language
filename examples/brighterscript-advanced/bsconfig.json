@@ -1,0 +1,17 @@
+{
+    "rootDir": ".",
+    "files": [
+        "manifest",
+        "source/**/*",
+        "components/**/*"
+    ],
+    "stagingDir": ".roku-deploy-staging",
+    "outDir": "out",
+    "outFile": "package.zip",
+    "createPackage": true,
+    "sourceMap": true,
+    "autoImportComponentScript": true,
+    "diagnosticFilters": [
+        "source/**"
+    ]
+}

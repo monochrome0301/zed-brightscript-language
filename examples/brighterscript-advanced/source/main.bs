@@ -1,0 +1,51 @@
+import "types/demo.d.bs"
+
+namespace Demo
+    enum Level
+        debug
+        info
+        error
+    end enum
+
+    interface LogSink
+        name as string
+        sub write(message as string)
+    end interface
+
+    class ConsoleSink implements LogSink
+        public name as string
+
+        sub new(name as string)
+            m.name = name
+        end sub
+
+        override sub write(message as string)
+            print `[${m.name}] ${message}`
+        end sub
+    end class
+
+    class Logger
+        private sink as LogSink
+        public minLevel as Level = Level.info
+
+        sub new(sink as LogSink)
+            m.sink = sink
+        end sub
+
+        function log(level as Level, message as string) as void
+            if level >= m.minLevel
+                m.sink.write(`${level}: ${message}`)
+            end if
+        end function
+    end class
+end namespace
+
+sub main()
+    sink = new Demo.ConsoleSink("demo")
+    logger = new Demo.Logger(sink)
+    logger.log(Demo.Level.info, "brighterscript is running")
+
+    config = { retries: 3, timeout: 1500 }
+    retries = config?.retries ?? 0
+    logger.log(Demo.Level.debug, `retries=${retries}`)
+end sub

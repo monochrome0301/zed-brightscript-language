@@ -1,0 +1,7 @@
+' Type declarations for external APIs used by this demo
+declare namespace Demo
+    interface Logger
+        level as string
+        sub log(message as string)
+    end interface
+end namespace

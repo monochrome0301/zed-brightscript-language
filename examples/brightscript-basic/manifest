@@ -1,0 +1,8 @@
+title=BrightScript Basic Demo
+subtitle=Plain BrightScript example for the Zed extension
+major_version=1
+minor_version=0
+build_version=1
+build_number=1
+ui_resolutions=hd
+splash_screen_fhd=pkg:/images/splash_fhd.jpg

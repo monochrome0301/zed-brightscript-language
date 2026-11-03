@@ -1,0 +1,5 @@
+import "pkg:/source/main.bs"
+
+sub init()
+    m.top.findNode("hello").text = "ready"
+end sub
